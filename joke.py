@@ -5,6 +5,7 @@ import random
 auth_url = 'https://www.strava.com/api/v3/oauth/token'
 url = 'https://www.strava.com/api/v3'
 
+#Map of Jokes
 jokes= {
 'What did one pirate say to the other when he beat him at chess?':'Checkmatey.',
 'I burned 2000 calories today':'I left my food in the oven for too long.',
@@ -265,6 +266,9 @@ jokes= {
 #     'grant_type':'authorization_code',
 #     'code': config.code
 # }
+
+#Method for getting the most recent activity and appending a joke from the list
+#to the description
 def update_joke(): 
     #Retrieving refresh token
     payload = {
@@ -303,6 +307,8 @@ def update_joke():
         headers=headers,
     )
     current_description = response.json()['description']
+
+    #If description is empty, set it to an empty string
     if current_description is None:
         current_description = ''
 
@@ -316,9 +322,14 @@ def update_joke():
     updatableActivity = {
         'description': '🤡 Joke of the day 🤡\n' + setup + '\n' + punchline + '\n- by Joke.py' + '\n\n' + current_description
     }
-    response = requests.put(
-        url+'/activities/'+str(activity_id),
-        headers=headers,
-        params=updatableActivity
-    )
 
+    #If there is already a joke in the current run, don't put another.
+    if('🤡 Joke of the day 🤡' not in current_description):
+        response = requests.put(
+            url+'/activities/'+str(activity_id),
+            headers=headers,
+            params=updatableActivity
+        )
+
+#Calling method for testing (if you want to just run the joke.py file)
+update_joke()
