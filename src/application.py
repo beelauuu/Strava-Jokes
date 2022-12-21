@@ -18,7 +18,6 @@ def api_root():
 @app.route('/strava', methods=['POST'])
 def api_strava_message():
     if request.headers['Content-Type'] == 'application/json':
-        print(my_info)
         my_info = request.json
         if(my_info['aspect_type'] == 'create'):
             joke.update_joke()
