@@ -253,6 +253,9 @@ jokes_permanent = {
 'What\'s the most patriotic sport?':' Flag football.'
 }
 
+### Note, you will need to configure the file path of the pickles file ###
+path = "/home/blau0177/stravaJokes/"
+
 # Saves the variable to a file
 def save_variable(var, filename):
   with open(filename, 'wb') as f:
@@ -266,7 +269,7 @@ def load_variable(filename):
 #Loading in a joke, removing it, saving it again as a pickles file, returning
 def check():
     # Load in the joke and get the setup and punchline
-    jokes = load_variable("joke_static.pkl")
+    jokes = load_variable(path+"joke_static.pkl")
     setup = str(random.choice(list(jokes.keys())))
     punchline = str(jokes[setup]).strip()
 
@@ -276,10 +279,10 @@ def check():
 
     #If the list is empty, just reset 
     if len(jokes) == 0:
-        jokes = save_variable(jokes_permanent,"joke_static.pkl")
+        save_variable(jokes_permanent,"joke_static.pkl")
     
     #Saving the current state
-    jokes = save_variable(jokes,"joke_static.pkl")
+    save_variable(jokes,"joke_static.pkl")
     return setup, punchline
 
 
