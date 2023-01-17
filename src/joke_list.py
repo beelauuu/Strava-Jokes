@@ -279,10 +279,10 @@ def check():
 
     #If the list is empty, just reset 
     if len(jokes) == 0:
-        save_variable(jokes_permanent,"joke_static.pkl")
+        save_variable(jokes_permanent,path+"joke_static.pkl")
     
     #Saving the current state
-    save_variable(jokes,"joke_static.pkl")
+    save_variable(jokes,path+"joke_static.pkl")
     return setup, punchline
 
 
